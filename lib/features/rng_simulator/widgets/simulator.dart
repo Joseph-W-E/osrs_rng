@@ -37,7 +37,7 @@ class _SimulatorState extends State<Simulator>
   void didUpdateWidget(covariant Simulator oldWidget) {
     super.didUpdateWidget(oldWidget);
     final n = widget.numerator, d = widget.denominator;
-    if (n != null && d != null && n < d && n > 0) {
+    if (n != null && d != null && 0 < n && n < d) {
       _controller
         ..reset()
         ..forward();

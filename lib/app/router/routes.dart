@@ -26,7 +26,6 @@ class Routes {
       ShellRoute(
         builder: (context, state, child) {
           return Shell(
-            route: state.location,
             child: child,
           );
         },

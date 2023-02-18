@@ -17,14 +17,14 @@ class _RngSimulatorPageState extends State<RngSimulatorPage> {
     super.initState();
     _fraction.addListener(
       () {
-        setState(() {
-          final ints = _fraction.text.split('/').map(int.tryParse);
-          if (ints.length == 2 && ints.every((i) => i != null)) {
-            _percentage = (ints.first! / ints.last!).abs();
-          } else {
-            _percentage = 0.0;
-          }
-        });
+        final ints = _fraction.text.split('/').map(int.tryParse);
+        var percentage = 0.0;
+        if (ints.length == 2 && ints.every((i) => i != null)) {
+          percentage = (ints.first! / ints.last!).abs();
+        }
+        if (_percentage != percentage) {
+          setState(() => _percentage = percentage);
+        }
       },
     );
   }
@@ -71,6 +71,12 @@ class _RngSimulatorPageState extends State<RngSimulatorPage> {
               Simulator(
                 numerator: _numerator,
                 denominator: _denominator,
+              ),
+              const SizedBox(height: 12),
+              TextButton(
+                // An empty setState causes the simulator to regenerate.
+                onPressed: () => setState(() {}),
+                child: const Text('Run'),
               ),
             ],
           ),
